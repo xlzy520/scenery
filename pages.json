@@ -9,7 +9,7 @@
     {
       "path": "pages/select/select",
       "style": {
-        "navigationBarTitleText": "位置微调"
+        "navigationBarTitleText": "导航"
       }
     },
     {

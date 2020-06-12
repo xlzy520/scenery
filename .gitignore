@@ -6,3 +6,5 @@ unpackage
 cloudfunctions-tcb/
 ./unpackage
 ./node_modules
+unpackage/**
+unpackage/dist

@@ -2,9 +2,9 @@
   <div class="signin">
     <view class="swiper">
       <swiper indicator-dots autoplay indicator-color="#fff" indicator-active-color="#ff001c" >
-        <block v-for="item in 5" :key="item">
+        <block v-for="img in imgs" :key="img.fileID">
           <swiper-item>
-            <image class="swiper-item" :src="'../../static/swiper/'+(item+1)+'.jpg'"></image>
+            <image class="swiper-item" :src="img.tempFileURL"></image>
           </swiper-item>
         </block>
       </swiper>
@@ -33,13 +33,13 @@
           @click="getLocation">
           重试
         </van-button>
-        <van-button v-if="location.curLocation"
-          slot="right-icon"
-          type="primary"
-          size="mini"
-          @click="handleSelect">
-          位置微调
-        </van-button>
+<!--        <van-button v-if="location.curLocation"-->
+<!--          slot="right-icon"-->
+<!--          type="primary"-->
+<!--          size="mini"-->
+<!--          @click="handleSelect">-->
+<!--          位置微调-->
+<!--        </van-button>-->
       </van-cell>
     </view>
     <view>
@@ -87,10 +87,10 @@ export default {
   },
   onLoad () {
     this.getLocation()
+    this.getSwiperImages()
   },
   methods: {
     ...mapMutations(['SET_SELECTED_SEARCH']),
-    // 签到
     getWeather(area){
       getWeather({
         location: area
@@ -98,6 +98,23 @@ export default {
         const now = res.results[0].now
         this.weather = now.text
         this.temperature = now.temperature
+      })
+    },
+    getSwiperImages(){
+      wx.cloud.getTempFileURL({
+        fileList: [
+          'cloud://xlzy-l8jlc.786c-xlzy-l8jlc-1302360965/sceneryMarkers/1.jpg',
+          'cloud://xlzy-l8jlc.786c-xlzy-l8jlc-1302360965/sceneryMarkers/2.jpg',
+          'cloud://xlzy-l8jlc.786c-xlzy-l8jlc-1302360965/sceneryMarkers/3.jpg',
+          'cloud://xlzy-l8jlc.786c-xlzy-l8jlc-1302360965/sceneryMarkers/4.jpg',
+          'cloud://xlzy-l8jlc.786c-xlzy-l8jlc-1302360965/sceneryMarkers/5.jpg',
+          'cloud://xlzy-l8jlc.786c-xlzy-l8jlc-1302360965/sceneryMarkers/6.jpg',
+        ]
+      }).then(res => {
+        this.imgs = res.fileList
+      }).catch(error => {
+        console.log(error);
+        // handle error
       })
     },
     // 获取当前定位
