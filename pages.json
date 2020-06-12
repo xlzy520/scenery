@@ -1,55 +1,59 @@
 {
-	"pages": [
-		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "签到"
-			}
-		},
-		{
-			"path": "pages/select/select",
-			"style": {
-				"navigationBarTitleText": "位置微调"
-			}
-		},
-		{
-			"path": "pages/search/search",
-			"style": {
-				"navigationBarTitleText": "搜索"
-			}
-		}
-	],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "",
-		"navigationBarBackgroundColor": "#FFFFFF",
-		"backgroundColor": "#FFFFFF",
-		"usingComponents": {
-			"van-button": "/wxcomponents/vant/button/index",
-			"van-cell": "/wxcomponents/vant/cell/index",
-			"van-cell-group": "/wxcomponents/vant/cell-group/index",
-			"van-search": "/wxcomponents/vant/search/index",
-			"van-icon": "/wxcomponents/vant/icon/index",
-			"van-field": "/wxcomponents/vant/field/index",
-			"van-loading": "/wxcomponents/vant/loading/index",
-			"van-info": "/wxcomponents/vant/info/index"
-		}
-	},
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "景你所见"
+      }
+    },
+    {
+      "path": "pages/select/select",
+      "style": {
+        "navigationBarTitleText": "位置微调"
+      }
+    },
+    {
+      "path": "pages/search/search",
+      "style": {
+        "navigationBarTitleText": "搜索"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#FFFFFF",
+    "usingComponents": {
+      "van-button": "/wxcomponents/vant/button/index",
+      "van-cell": "/wxcomponents/vant/cell/index",
+      "van-cell-group": "/wxcomponents/vant/cell-group/index",
+      "van-search": "/wxcomponents/vant/search/index",
+      "van-icon": "/wxcomponents/vant/icon/index",
+      "van-field": "/wxcomponents/vant/field/index",
+      "van-loading": "/wxcomponents/vant/loading/index",
+      "van-info": "/wxcomponents/vant/info/index",
+      "van-divider": "/wxcomponents/vant/divider/index"
+    }
+  },
   "tabBar": {
     "color": "#7A7E83",
     "selectedColor": "#f4ea2a",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
-    "list": [{
-      "pagePath": "pages/index/index",
-      "iconPath": "static/tabbar/index.png",
-      "selectedIconPath": "static/tabbar/index1.png",
-      "text": "首页"
-    }, {
-      "pagePath": "pages/user/user",
-      "iconPath": "static/tabbar/user.png",
-      "selectedIconPath": "static/tabbar/user1.png",
-      "text": "景点查询"
-    }]
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/images/index.png",
+        "selectedIconPath": "static/images/index1.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/select/select",
+        "iconPath": "static/images/category.png",
+        "selectedIconPath": "static/images/category1.png",
+        "text": "景点查询"
+      }
+    ]
   }
 }

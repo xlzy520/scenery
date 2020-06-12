@@ -2,3 +2,7 @@
 node_modules
 .idea
 unpackage
+.DS_Store
+cloudfunctions-tcb/
+./unpackage
+./node_modules

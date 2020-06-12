@@ -1,12 +1,22 @@
 <template>
   <div class="signin">
+    <view class="swiper">
+      <swiper indicator-dots autoplay indicator-color="#fff" indicator-active-color="#ff001c" >
+        <block v-for="item in 5" :key="item">
+          <swiper-item>
+            <image class="swiper-item" :src="'../../static/swiper/'+(item+1)+'.jpg'"></image>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class="userinfo">
+      <open-data type="userNickName" class="userinfo-nickname"></open-data>
+      <open-data type="userAvatarUrl" class="userinfo-avatar"></open-data>
+    </view>
     <view class="location">
-      <van-cell class="field-cell"
-        required
-        title-width="150rpx"
-        title="当前定位：">
-        <view v-if="formData.signAddress" class="location">
-          {{ formData.signAddress }}
+      <van-cell class="field-cell" required title-width="200rpx" title="当前定位">
+        <view v-if="location.curLocation.address" class="location">
+          {{ location.curLocation.address }}
         </view>
         <view v-if="location.error"
           class="error">
@@ -33,29 +43,21 @@
       </van-cell>
     </view>
     <view>
-      当前天气:
-      {{weather}}
+      <view class="weather">
+        <van-cell class="field-cell" title-width="600rpx" title="当前天气" :value="weather"></van-cell>
+        <van-cell class="field-cell" title-width="600rpx" title="当前气温" :value="temperature+'°'"></van-cell>
+      </view>
+      <van-divider contentPosition="center" dashed>景点推荐</van-divider>
+      <view class="scenery">
+        <view class="scenery-item" v-for="item in scenery" :key="item.ID">
+          <view>{{item.address}}</view>
+          <view>{{item.name}}</view>
+          <view>{{item.open}}</view>
+          <view>{{item.rank}}</view>
+          <view>{{item.recommend}}</view>
+        </view>
+      </view>
     </view>
-    <view>当前温度：{{temperature}}</view>
-<!--    <view class="signin-area">-->
-<!--      <van-button class="signin-btn"-->
-<!--        type="primary"-->
-<!--        round-->
-<!--        :disabled="signin.isSignin"-->
-<!--        @click="handleSignin">-->
-<!--        <view class="label">签到</view>-->
-<!--        <view class="time">{{ signin.time }}</view>-->
-<!--      </van-button>-->
-<!--      <view class="signin-result">-->
-<!--        <van-icon v-if="signin.count"-->
-<!--          name="checked"-->
-<!--          size="30rpx"-->
-<!--          color="#4cd964"-->
-<!--          style="margin-right:10rpx" />-->
-<!--        <text v-if="signin.count">今日您已签到<text>{{ signin.count }}</text>次</text>-->
-<!--        <text v-else>今日您还未签到</text>-->
-<!--      </view>-->
-<!--    </view>-->
   </div>
 </template>
 
@@ -66,16 +68,6 @@ import { getWeather } from 'api'
 export default {
   data () {
     return {
-			signin: {
-				time: '', // 签到时间
-				count: 0, // 签到时间
-				isSignin: false //是否签到
-			},
-      formData: {
-        signAddress: '', // 签到地址
-        longitude: '', // 经度
-        latitude: '' // 维度
-			},
 			location: {
 				loading: true,
 				error: false,
@@ -83,7 +75,11 @@ export default {
 				curLocation: null // 当前位置信息
 			},
       weather: '',
-      temperature: ''
+      temperature: '',
+      scenery: [],
+      imgs: [
+
+      ]
     }
   },
   computed: {
@@ -91,12 +87,6 @@ export default {
   },
   onLoad () {
     this.getLocation()
-    this.getTime()
-    if (this.timerInterval) {
-      clearInterval(this.timerInterval)
-    } else {
-      this.timerInterval = setInterval(this.getTime, 1000)
-    }
   },
   methods: {
     ...mapMutations(['SET_SELECTED_SEARCH']),
@@ -108,28 +98,7 @@ export default {
         const now = res.results[0].now
         this.weather = now.text
         this.temperature = now.temperature
-        console.log(res);
       })
-    },
-    handleSignin () {
-      if (!this.location.curLocation) {
-        this.getLocation()
-      } else {
-				clearInterval(this.timerInterval)
-				this.signin.count++
-				this.signin.isSignin = true
-				this.getTime(new Date())
-				uni.showToast({
-					title: '签到成功',
-					icon: 'success'
-        })
-        console.log('签到数据：', this.formData)
-			}
-    },
-    // 获取当前时间时分秒
-    getTime (time) {
-      time = time ? new Date(time) : new Date()
-      this.signin.time = formatDate(time, 'HH:mm:ss')
     },
     // 获取当前定位
     getLocation () {
@@ -151,7 +120,6 @@ export default {
         .then(res => {
           console.log('当前位置信息：', res)
           const address = res.result.pois[0].title
-					this.formData.signAddress = address
 					this.location.curLocation = res.result
           this.location.error = false
           this.location.loading = false
@@ -180,13 +148,6 @@ export default {
   },
   watch: {
     selectedLocation (newData) {
-      if (newData) {
-        const { title, location } = newData
-        this.formData.signAddress = title
-        this.formData.longitude = location.lng
-        this.formData.latitude = location.lat
-        this.location.curLocation = newData
-      }
     }
   }
 }
@@ -239,6 +200,31 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+  }
+  .userinfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 750rpx;
+  }
+  .userinfo-avatar {
+    width: 154rpx;
+    height: 154rpx;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background-color: #b90105;
+    overflow:hidden;
+    display: block;
+  }
+  .userinfo-nickname {
+    font-family: PingFang SC Medium, sans-serif;
+    margin: 20rpx 0;
+    font-size: 36rpx;
+  }
+  .scenery{
+    .scenery-item{
+      display: flex;
     }
   }
 }
