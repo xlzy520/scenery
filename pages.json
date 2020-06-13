@@ -17,6 +17,12 @@
       "style": {
         "navigationBarTitleText": "搜索"
       }
+    },
+    {
+      "path": "pages/manage/index",
+      "style": {
+        "navigationBarTitleText": "管理"
+      }
     }
   ],
   "globalStyle": {

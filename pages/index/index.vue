@@ -14,7 +14,7 @@
       <open-data type="userAvatarUrl" class="userinfo-avatar"></open-data>
     </view>
     <view class="location">
-      <van-cell class="field-cell" required title-width="200rpx" title="当前定位">
+      <van-cell class="field-cell" title-width="200rpx" title="当前定位">
         <view v-if="location.curLocation.address" class="location">
           {{ location.curLocation.address }}
         </view>
@@ -46,7 +46,11 @@
       <view class="weather">
         <van-cell class="field-cell" title-width="600rpx" title="当前天气" :value="weather"></van-cell>
         <van-cell class="field-cell" title-width="600rpx" title="当前气温" :value="temperature+'°'"></van-cell>
+        <van-cell-group title="管理" v-if="hasManagePermission">
+          <van-cell title="景点标记" is-link link-type="navigateTo" url="/pages/manage/index" />
+        </van-cell-group>
       </view>
+
       <van-divider contentPosition="center" dashed>景点推荐</van-divider>
       <view class="scenery">
         <view class="scenery-item" v-for="item in scenery" :key="item.ID">
@@ -83,7 +87,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['selectedLocation', 'selectedSearch'])
+    ...mapGetters(['selectedLocation', 'selectedSearch']),
+    hasManagePermission(){
+      return true
+    }
   },
   onLoad () {
     this.getLocation()
@@ -91,6 +98,11 @@ export default {
   },
   methods: {
     ...mapMutations(['SET_SELECTED_SEARCH']),
+    manageScenery(){
+      uni.navigateTo({
+        url: `/pages/select/select?longitude=${lng}&latitude=${lat}`
+      })
+    },
     getWeather(area){
       getWeather({
         location: area
@@ -218,6 +230,9 @@ export default {
       align-items: center;
       justify-content: center;
     }
+  }
+  .swiper-item{
+    width: 100%;
   }
   .userinfo {
     display: flex;
