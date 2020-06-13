@@ -130,7 +130,7 @@ export default {
         'longitude': location.longitude
       });
       wx.navigateTo({
-        url: 'plugin://routePlan/index?key=' + key + '&referer=' + referer + '&endPoint=' + endPoint
+        url: 'plugin://routePlan/index?navigation=1&key=' + key + '&referer=' + referer + '&endPoint=' + endPoint
       });
     },
     getMarkers(){
