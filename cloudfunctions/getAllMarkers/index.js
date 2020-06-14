@@ -17,6 +17,6 @@ cloud.init({
  */
 exports.main = async (event, context) => {
   const db = cloud.database()
-  return await db.collection('mapMarkers').limit(200).get()
+  return await db.collection('mapMarkers').orderBy('rank', 'asc').limit(500).get()
 }
 
