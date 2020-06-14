@@ -51,24 +51,41 @@
         </van-cell-group>
       </view>
 
-      <van-divider contentPosition="center" dashed>景点推荐</van-divider>
-      <view class="scenery">
-        <view class="scenery-item" v-for="item in scenery" :key="item.ID">
-          <view>{{item.address}}</view>
-          <view>{{item.name}}</view>
-          <view>{{item.open}}</view>
-          <view>{{item.rank}}</view>
-          <view>{{item.recommend}}</view>
+      <van-divider class="divider" contentPosition="center" dashed>景点推荐</van-divider>
+      <scroll-view class="search-list"
+                   scroll-y>
+        <view class="list-item van-hairline--bottom"
+              v-for="(item) in scenery"
+              :key="item.id"
+              @tap="goToRoutePlan(item)">
+          <view class="info">
+            <view class="title ellipsis">
+              <view>{{ item.title }}</view>
+              <view class="distance">{{ item._distance }} m</view>
+            </view>
+            <view class="address ellipsis">{{ item.address }}</view>
+          </view>
         </view>
-      </view>
+      </scroll-view>
+
+<!--      <view class="scenery">-->
+<!--        <view class="scenery-item" v-for="item in scenery" :key="item.ID">-->
+<!--          <view>{{item.address}}</view>-->
+<!--          <view>{{item.name}}</view>-->
+<!--          <view>{{item.open}}</view>-->
+<!--          <view>{{item.rank}}</view>-->
+<!--          <view>{{item.recommend}}</view>-->
+<!--        </view>-->
+<!--      </view>-->
     </view>
   </div>
 </template>
 
 <script>
-import { formatDate, reverseGeocoder, getLocation } from '@/utils'
+import { mapSearch, reverseGeocoder, getLocation } from '@/utils'
 import { mapGetters, mapMutations } from 'vuex'
 import { getWeather } from 'api'
+import {MAP_KEY} from "../../config";
 export default {
   data () {
     return {
@@ -81,9 +98,7 @@ export default {
       weather: '',
       temperature: '',
       scenery: [],
-      imgs: [
-
-      ]
+      imgs: []
     }
   },
   computed: {
@@ -137,6 +152,7 @@ export default {
         .then(res => {
 					const { longitude, latitude } = res
 					this.getLocationInfo({ longitude, latitude })
+          this.getNearbyAttractions(longitude, latitude)
         })
         .catch(() => {
           this.location.loading = false
@@ -173,7 +189,29 @@ export default {
       } else {
         this.getLocation()
       }
-    }
+    },
+    // 景区推荐
+    getNearbyAttractions(longitude, latitude){
+      mapSearch('景区', {
+        longitude: longitude,
+        latitude: latitude,
+      }).then(res=>{
+        this.scenery = res.data || []
+      })
+    },
+    goToRoutePlan(item){
+      let key = MAP_KEY;  //使用在腾讯位置服务申请的key
+      let referer = '景你所见';   //调用插件的app的名称
+      let endPoint = JSON.stringify({  //终点
+        'name': item.title,
+        'latitude': item.location.lat,
+        'longitude': item.location.lng
+      });
+      wx.navigateTo({
+        url: 'plugin://routePlan/index?navigation=1&key=' + key + '&referer=' + referer + '&endPoint=' + endPoint
+      });
+    },
+
   },
   watch: {
     selectedLocation (newData) {
@@ -258,6 +296,37 @@ export default {
     .scenery-item{
       display: flex;
     }
+  }
+  .search-list {
+    overflow: auto;
+    position: relative;
+    flex: 1;
+    .list-item {
+      padding: 30rpx;
+      .title,
+      .address {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .title {
+        display: flex;
+        justify-content: space-between;
+        font-size: 28rpx;
+        line-height: 40rpx;
+      }
+      .distance{
+        color: #ff976a;
+      }
+      .address {
+        font-size: 24rpx;
+        height: 34rpx;
+        color: $uni-text-color-grey;
+      }
+    }
+  }
+  /deep/.van-divider{
+    color: #007aff;
   }
 }
 </style>
