@@ -5,20 +5,17 @@
         @change="changeSearchValue">
       </van-search>
     </view>
-    <scroll-view class="search-list"
-      scroll-y>
-      <view class="list-item van-hairline--bottom"
-        v-for="(item) in showList"
-        :key="item.id"
-        @tap="handleSelect(item)">
+    <scroll-view class="search-list" scroll-y>
+      <view class="list-item van-hairline--bottom" v-for="item in showList"
+        :key="item._id"
+        @tap.prevent="handleSelect(item)">
         <view class="info">
           <view class="title ellipsis">{{ item.name }}</view>
           <view class="address ellipsis">{{ item.address }}</view>
         </view>
-        <view class="delete" @click="()=>remove(item)">删除</view>
+        <view class="delete" @tap="remove(item)">删除</view>
       </view>
-      <view v-if="loading"
-        class="loading">
+      <view v-if="loading" class="loading">
         <van-loading size="32rpx">
           <text class="loading-text">加载中...</text>
         </van-loading>
@@ -29,14 +26,14 @@
       </view>
     </scroll-view>
     <view class="footer">
-      <van-button type="primary" block @click="add">新增景区</van-button>
+      <van-button type="primary" block @click="chooseLocation">新增景区</van-button>
     </view>
   </view>
 </template>
 
 <script>
-import debounce from 'lodash/debounce'
 import { mapMutations } from 'vuex'
+const chooseLocation = requirePlugin('chooseLocation');
 import {MAP_KEY} from "../../config";
 export default {
   data () {
@@ -50,6 +47,13 @@ export default {
   },
   onLoad () {
     this.getMarkers()
+  },
+  onShow(){
+    const location = chooseLocation.getLocation();
+    if (location) {
+      this.add(location)
+    }
+    console.log(location);
   },
   computed: {
 
@@ -81,7 +85,7 @@ export default {
       this.keyword = e.detail
       this.mapSearch()
     },
-    handleSelect (item) {
+    handleSelect(item) {
       this.SET_SELECTED_SEARCH(item)
       this.SET_SELECTED_LOCATION(null)
       uni.navigateBack()
@@ -91,23 +95,71 @@ export default {
         value => value.address.includes(detail) ||
         value.name.includes(detail))
     },
-    add(){
+    chooseLocation(){
       const key = MAP_KEY; //使用在腾讯位置服务申请的key
       const referer = '景你所见'; //调用插件的app的名称
       const location = JSON.stringify({
         latitude: 39.89631551,
         longitude: 116.323459711
       });
-      const category = '生活服务,娱乐休闲';
+      const category = '旅游景点';
 
-      // wx.navigateTo({
-      //   url: 'plugin://chooseLocation/index?key=' + key + '&referer=' + referer + '&location=' + location + '&category=' + category
-      // });
+      wx.navigateTo({
+        url: 'plugin://chooseLocation/index?key=' + key + '&referer=' + referer + '&category=' + category
+      });
       console.log(location);
     },
     remove(item){
-
+      wx.showModal({
+        title: '提示',
+        content: '确认删除该景点标注吗？',
+        success:(res)=> {
+          if (res.confirm) {
+            const db = wx.cloud.database()
+            try {
+              db.collection('mapMarkers').doc(item._id).remove({
+                success: res => {
+                  this.getMarkers()
+                  wx.showToast({
+                    title: '删除成功',
+                  })
+                },
+                fail: err => {
+                  wx.showToast({
+                    icon: 'none',
+                    title: '删除失败'
+                  })
+                }
+              })
+            }catch (e) {
+              console.log(e);
+            }
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    },
+    add(location){
+      const db = wx.cloud.database()
+      db.collection('mapMarkers').add({
+        data: {
+          ...location,
+          rank: this.list.length + 1
+        }
+      }).then(res=>{
+        this.getMarkers()
+        wx.showToast({
+          title: '新增成功',
+        })
+      }).catch(err=>{
+        wx.showToast({
+          icon: 'none',
+          title: '新增失败'
+        })
+      })
     }
+
   }
 }
 
