@@ -100,26 +100,9 @@ export default {
     this.getLocation()
     this.getMarkers()
   },
-  onShow(){
-    // const location = chooseLocation.getLocation();
-    const key = MAP_KEY; //使用在腾讯位置服务申请的key
-    const referer = '景你所见'; //调用插件的app的名称
-    const location = JSON.stringify({
-      latitude: 39.89631551,
-      longitude: 116.323459711
-    });
-    const category = '生活服务,娱乐休闲';
-
-    // wx.navigateTo({
-    //   url: 'plugin://chooseLocation/index?key=' + key + '&referer=' + referer + '&location=' + location + '&category=' + category
-    // });
-    console.log(location);
-  },
   methods: {
     ...mapMutations(['SET_SELECTED_LOCATION', 'SET_SELECTED_SEARCH']),
     goToRoutePlan({markerId}){
-      // console.log(a, b);
-      // let plugin = requirePlugin('routePlan');
       let key = MAP_KEY;  //使用在腾讯位置服务申请的key
       const location = this.markers.find(marker => marker.id === markerId)
       console.log(location);
