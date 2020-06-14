@@ -13,8 +13,6 @@
       <cover-image class="location-icon"
         src="/static/images/location.png">
       </cover-image>
-      <!-- tip -->
-<!--      <cover-view class="tip">您可以拖动地图，标记当前精准位置</cover-view>-->
     </map>
     <view class="search-area">
       <view class="top-search">
@@ -45,11 +43,6 @@
             </view>
           </view>
         </scroll-view>
-<!--        <van-button type="primary"-->
-<!--          block-->
-<!--          @click="handleConfirm">-->
-<!--          确认位置-->
-<!--        </van-button>-->
       </view>
     </view>
   </view>
@@ -94,8 +87,7 @@ export default {
       })
     }
   },
-  onLoad ({ longitude, latitude }) {
-    console.log(longitude);
+  onLoad () {
     this.mapContext = uni.createMapContext('map')
     this.getLocation()
     this.getMarkers()
@@ -121,69 +113,14 @@ export default {
         name: 'getAllMarkers',
         success: res => {
           this.scenery = res.result.data
-          console.log(res);
         },
         fail: err => {
           wx.showToast({
             icon: 'none',
-            title: '调用失败',
+            title: '查询失败',
           })
-          console.error('[云函数] 调用失败：', err)
         }
       })
-
-      // const db = wx.cloud.database()
-      // db.collection('mapMarkers').where({}).limit(20).get({
-      //   success: res => {
-      //     console.log(res);
-      //   },
-      //   fail: err => {
-      //     uni.showToast({
-      //       icon: 'none',
-      //       title: '查询记录失败'
-      //     })
-      //     console.error('[数据库] [查询记录] 失败：', err)
-      //   }
-      // })
-    },
-    addMarker(){
-      const db = wx.cloud.database()
-      db.collection('test').add({
-        data: {
-          count: 1
-        },
-        success: res => {
-          // 在返回结果中会包含新创建的记录的 _id
-          this.setData({
-            counterId: res._id,
-            count: 1
-          })
-          wx.showToast({
-            title: '新增记录成功',
-          })
-          console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
-        },
-        fail: err => {
-          wx.showToast({
-            icon: 'none',
-            title: '新增记录失败'
-          })
-          console.error('[数据库] [新增记录] 失败：', err)
-        }
-      })
-    },
-    dituxuandian(){
-      const key = MAP_KEY; //使用在腾讯位置服务申请的key
-      const referer = '景你所见'; //调用插件的app的名称
-      const location = JSON.stringify({
-        latitude: 39.89631551,
-        longitude: 116.323459711
-      });
-      const category = '生活服务,娱乐休闲';
-
-      wx.navigateTo({
-        url: 'plugin://chooseLocation/index?key=' + key + '&referer=' + referer + '&location=' + location + '&category=' + category
-      });
     },
     goSearch () {
       uni.navigateTo({
@@ -236,7 +173,6 @@ export default {
       }
     },
     selectedAddress (item) {
-      console.log(item);
       this.active = item.id
       this.SET_SELECTED_SEARCH(item)
       this.mapContext.moveToLocation({

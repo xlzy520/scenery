@@ -33,13 +33,6 @@
           @click="getLocation">
           重试
         </van-button>
-<!--        <van-button v-if="location.curLocation"-->
-<!--          slot="right-icon"-->
-<!--          type="primary"-->
-<!--          size="mini"-->
-<!--          @click="handleSelect">-->
-<!--          位置微调-->
-<!--        </van-button>-->
       </van-cell>
     </view>
     <view>
@@ -67,16 +60,6 @@
           </view>
         </view>
       </scroll-view>
-
-<!--      <view class="scenery">-->
-<!--        <view class="scenery-item" v-for="item in scenery" :key="item.ID">-->
-<!--          <view>{{item.address}}</view>-->
-<!--          <view>{{item.name}}</view>-->
-<!--          <view>{{item.open}}</view>-->
-<!--          <view>{{item.rank}}</view>-->
-<!--          <view>{{item.recommend}}</view>-->
-<!--        </view>-->
-<!--      </view>-->
     </view>
   </div>
 </template>
@@ -176,20 +159,6 @@ export default {
           this.location.error = true
         })
     },
-    // 位置微调
-    handleSelect () {
-      if (this.location.curLocation) {
-        const { lng, lat } = this.location.curLocation.location
-        if (this.selectedSearch && (this.selectedSearch.location.lng !== lng || this.selectedSearch.location.lat !== lat)) {
-          this.SET_SELECTED_SEARCH(null)
-        }
-        uni.navigateTo({
-					url: `/pages/select/select?longitude=${lng}&latitude=${lat}`
-				})
-      } else {
-        this.getLocation()
-      }
-    },
     // 景区推荐
     getNearbyAttractions(longitude, latitude){
       mapSearch('景区', {
@@ -213,10 +182,10 @@ export default {
     },
 
   },
-  watch: {
-    selectedLocation (newData) {
-    }
-  }
+  // watch: {
+  //   selectedLocation (newData) {
+  //   }
+  // }
 }
 </script>
 
