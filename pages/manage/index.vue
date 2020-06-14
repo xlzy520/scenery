@@ -6,9 +6,7 @@
       </van-search>
     </view>
     <scroll-view class="search-list" scroll-y>
-      <view class="list-item van-hairline--bottom" v-for="item in showList"
-        :key="item._id"
-        @tap.prevent="handleSelect(item)">
+      <view class="list-item van-hairline--bottom" v-for="item in showList" :key="item._id">
         <view class="info">
           <view class="title ellipsis">{{ item.name }}</view>
           <view class="address ellipsis">{{ item.address }}</view>
