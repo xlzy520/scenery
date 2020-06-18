@@ -4,7 +4,4 @@ node_modules
 unpackage
 .DS_Store
 cloudfunctions-tcb/
-./unpackage
 ./node_modules
-unpackage/**
-unpackage/dist
