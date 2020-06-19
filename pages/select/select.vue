@@ -98,7 +98,7 @@ export default {
       let key = MAP_KEY;  //使用在腾讯位置服务申请的key
       const location = this.markers.find(marker => marker.id === markerId)
       console.log(location);
-      let referer = '景你所见';   //调用插件的app的名称
+      let referer = '景点推荐与导航';   //调用插件的app的名称
       let endPoint = JSON.stringify({  //终点
         'name': location.callout.content,
         'latitude': location.latitude,
