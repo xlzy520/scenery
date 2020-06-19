@@ -68,7 +68,7 @@
 import { mapSearch, reverseGeocoder, getLocation } from '@/utils'
 import { mapGetters, mapMutations } from 'vuex'
 import { getWeather } from 'api'
-import {MAP_KEY} from "../../config";
+import {MAP_KEY, Default_Location} from "../../config";
 export default {
   data () {
     return {
@@ -133,7 +133,8 @@ export default {
 			this.location.error = false
       getLocation()
         .then(res => {
-					const { longitude, latitude } = res
+					const { longitude, latitude } = Default_Location
+					// const { longitude, latitude } = res
 					this.getLocationInfo({ longitude, latitude })
           this.getNearbyAttractions(longitude, latitude)
         })

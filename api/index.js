@@ -7,10 +7,3 @@ export const getWeather = (data)=>{
     data,
   })
 }
-export const createGoods = (data)=>{
-  return http.request({
-    url:'index/createGoods',
-    method:'POST',
-    data,
-  })
-}

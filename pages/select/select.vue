@@ -53,7 +53,7 @@ import debounce from 'lodash/debounce'
 import { formatDate, reverseGeocoder, getLocation } from '@/utils'
 import { mapGetters, mapMutations } from 'vuex'
 const chooseLocation = requirePlugin('chooseLocation');
-import { MAP_KEY } from 'config'
+import { MAP_KEY, Default_Location } from 'config'
 export default {
   data () {
     return {
@@ -129,7 +129,8 @@ export default {
     },
     getLocation () {
       getLocation().then(res => {
-          const { longitude, latitude } = res
+          const { longitude, latitude } = Default_Location
+          // const { longitude, latitude } = res
           this.longitude = longitude
           this.latitude = latitude
           this.getLocationInfo({ longitude, latitude })
