@@ -68,7 +68,7 @@
 import { mapSearch, reverseGeocoder, getLocation } from '@/utils'
 import { mapGetters, mapMutations } from 'vuex'
 import { getWeather } from 'api'
-import {MAP_KEY, Default_Location} from "../../config";
+import {MAP_KEY, Default_Location, appName} from "../../config";
 export default {
   data () {
     return {
@@ -133,8 +133,8 @@ export default {
 			this.location.error = false
       getLocation()
         .then(res => {
-					const { longitude, latitude } = Default_Location
-					// const { longitude, latitude } = res
+					// const { longitude, latitude } = Default_Location
+					const { longitude, latitude } = res
 					this.getLocationInfo({ longitude, latitude })
           this.getNearbyAttractions(longitude, latitude)
         })
@@ -171,7 +171,7 @@ export default {
     },
     goToRoutePlan(item){
       let key = MAP_KEY;  //使用在腾讯位置服务申请的key
-      let referer = '景你所见';   //调用插件的app的名称
+      let referer = appName;   //调用插件的app的名称
       let endPoint = JSON.stringify({  //终点
         'name': item.title,
         'latitude': item.location.lat,

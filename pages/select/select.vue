@@ -129,8 +129,8 @@ export default {
     },
     getLocation () {
       getLocation().then(res => {
-          const { longitude, latitude } = Default_Location
-          // const { longitude, latitude } = res
+          // const { longitude, latitude } = Default_Location
+          const { longitude, latitude } = res
           this.longitude = longitude
           this.latitude = latitude
           this.getLocationInfo({ longitude, latitude })

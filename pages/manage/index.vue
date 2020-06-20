@@ -96,11 +96,11 @@ export default {
     chooseLocation(){
       const key = MAP_KEY; //使用在腾讯位置服务申请的key
       const referer = appName; //调用插件的app的名称
-      const location = JSON.stringify(Default_Location);
+      // const location = JSON.stringify(Default_Location);
       const category = '旅游景点';
 
       wx.navigateTo({
-        url: 'plugin://chooseLocation/index?key=' + key + '&referer=' + referer + '&category=' + category+'&location='+location
+        url: 'plugin://chooseLocation/index?key=' + key + '&referer=' + referer + '&category=' + category
       });
       console.log(location);
     },
