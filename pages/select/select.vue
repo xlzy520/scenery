@@ -71,7 +71,7 @@ export default {
     ...mapGetters(['selectedLocation', 'selectedSearch']),
     markers(){
       return this.scenery.map(v=>{
-        v.iconPath='../../static/images/location-fill.png'
+        v.iconPath='/static/images/location-fill.png'
         v.width = 30
         v.height = 30
         v.id = Number(v.rank)

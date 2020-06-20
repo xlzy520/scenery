@@ -32,7 +32,7 @@
 <script>
 import { mapMutations } from 'vuex'
 const chooseLocation = requirePlugin('chooseLocation');
-import {MAP_KEY} from "../../config";
+import {MAP_KEY, appName, Default_Location} from "../../config";
 export default {
   data () {
     return {
@@ -95,15 +95,12 @@ export default {
     },
     chooseLocation(){
       const key = MAP_KEY; //使用在腾讯位置服务申请的key
-      const referer = '景你所见'; //调用插件的app的名称
-      const location = JSON.stringify({
-        latitude: 39.89631551,
-        longitude: 116.323459711
-      });
+      const referer = appName; //调用插件的app的名称
+      const location = JSON.stringify(Default_Location);
       const category = '旅游景点';
 
       wx.navigateTo({
-        url: 'plugin://chooseLocation/index?key=' + key + '&referer=' + referer + '&category=' + category
+        url: 'plugin://chooseLocation/index?key=' + key + '&referer=' + referer + '&category=' + category+'&location='+location
       });
       console.log(location);
     },
@@ -123,6 +120,7 @@ export default {
                   })
                 },
                 fail: err => {
+                  console.log(err);
                   wx.showToast({
                     icon: 'none',
                     title: '删除失败'

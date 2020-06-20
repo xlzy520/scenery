@@ -113,12 +113,12 @@ export default {
     getSwiperImages(){
       wx.cloud.getTempFileURL({
         fileList: [
-          'cloud://xlzy-l8jlc.786c-xlzy-l8jlc-1302360965/sceneryMarkers/1.jpg',
-          'cloud://xlzy-l8jlc.786c-xlzy-l8jlc-1302360965/sceneryMarkers/2.jpg',
-          'cloud://xlzy-l8jlc.786c-xlzy-l8jlc-1302360965/sceneryMarkers/3.jpg',
-          'cloud://xlzy-l8jlc.786c-xlzy-l8jlc-1302360965/sceneryMarkers/4.jpg',
-          'cloud://xlzy-l8jlc.786c-xlzy-l8jlc-1302360965/sceneryMarkers/5.jpg',
-          'cloud://xlzy-l8jlc.786c-xlzy-l8jlc-1302360965/sceneryMarkers/6.jpg',
+          'cloud://wyq-h4cy6.7779-wyq-h4cy6-1302456469/1.jpg',
+          'cloud://wyq-h4cy6.7779-wyq-h4cy6-1302456469/2.jpg',
+          'cloud://wyq-h4cy6.7779-wyq-h4cy6-1302456469/3.jpg',
+          'cloud://wyq-h4cy6.7779-wyq-h4cy6-1302456469/4.jpg',
+          'cloud://wyq-h4cy6.7779-wyq-h4cy6-1302456469/5.jpg',
+          'cloud://wyq-h4cy6.7779-wyq-h4cy6-1302456469/6.jpg',
         ]
       }).then(res => {
         this.imgs = res.fileList
