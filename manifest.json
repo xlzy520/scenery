@@ -1,6 +1,6 @@
 {
-    "name" : "微信小程序签到定位及地图位置选择示例",
-    "appid" : "__UNI__12D1303",
+    "name" : "景点推荐与导航",
+    "appid" : "__UNI__9494FD5",
     "description" : "",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -69,16 +69,16 @@
                 "desc" : "需要您授权使用位置信息"
             }
         },
-      "plugins": {
-        "routePlan": {
-          "version": "1.0.3",
-          "provider": "wx50b5593e81dd937a"
-        },
-        "chooseLocation": {
-          "version": "1.0.0",
-          "provider": "wx76a9a06e5b4e693e"
+        "plugins" : {
+            "routePlan" : {
+                "version" : "1.0.3",
+                "provider" : "wx50b5593e81dd937a"
+            },
+            "chooseLocation" : {
+                "version" : "1.0.0",
+                "provider" : "wx76a9a06e5b4e693e"
+            }
         }
-      }
     },
     "mp-alipay" : {
         "usingComponents" : true
