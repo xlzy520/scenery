@@ -6,7 +6,8 @@
 1、先去腾讯地图申请一个 KEY：[去申请](https://lbs.qq.com)  
 2、将申请的 KEY 填入项目`config\index.js`中的`MAP_KEY`  
 3、`manifest.json`中配置上自己的小程序的 appid和路线规划插件routePlan的id，不然无法定位  
-5、执行`npm install`安装一些依赖(必须)
+4、执行`npm install`安装一些依赖(必须)
+5、上传云函数，导入数据库表mapMarkers，存放在根目录
 
 ## 项目内容
 0、基于 [微信小程序签到定位及地图位置选择](https://ext.dcloud.net.cn/plugin?id=1433) 开发  
