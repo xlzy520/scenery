@@ -1,2 +1,2 @@
 // 腾讯地图KEY，自行申请：https://lbs.qq.com
-export const MAP_KEY = 'TMHBZ-44NKU-RIEVH-26FJG-6XSI6-TYFPG' // 最好自己去申请一个，随时可能会被删除
+export const MAP_KEY = 'QOZBZ-FBMK3-2S23S-37SXW-JIMT2-X2BUY' // 最好自己去申请一个，随时可能会被删除

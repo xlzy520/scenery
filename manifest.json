@@ -1,5 +1,5 @@
 {
-    "name" : "微信小程序签到定位及地图位置选择示例",
+    "name" : "景你所见",
     "appid" : "__UNI__12D1303",
     "description" : "",
     "versionName" : "1.0.0",
@@ -57,13 +57,14 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "wx7d81ab35c5db52b5",
+        "appid" : "wx5f7b6c606a7ef5c2",
         "setting" : {
             "urlCheck" : false,
             "es6" : true,
             "minified" : true
         },
         "usingComponents" : true,
+      "cloudfunctionRoot": "./static/cloudfunctions/",
         "permission" : {
             "scope.userLocation" : {
                 "desc" : "需要您授权使用位置信息"

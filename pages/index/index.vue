@@ -113,12 +113,12 @@ export default {
     getSwiperImages(){
       wx.cloud.getTempFileURL({
         fileList: [
-          'cloud://xlzy-l8jlc.786c-xlzy-l8jlc-1302360965/sceneryMarkers/1.jpg',
-          'cloud://xlzy-l8jlc.786c-xlzy-l8jlc-1302360965/sceneryMarkers/2.jpg',
-          'cloud://xlzy-l8jlc.786c-xlzy-l8jlc-1302360965/sceneryMarkers/3.jpg',
-          'cloud://xlzy-l8jlc.786c-xlzy-l8jlc-1302360965/sceneryMarkers/4.jpg',
-          'cloud://xlzy-l8jlc.786c-xlzy-l8jlc-1302360965/sceneryMarkers/5.jpg',
-          'cloud://xlzy-l8jlc.786c-xlzy-l8jlc-1302360965/sceneryMarkers/6.jpg',
+          'cloud://foodre-7gmmi9n04246a8c1.666f-foodre-7gmmi9n04246a8c1-1317135481/sceneryMarkers/1.png',
+          'cloud://foodre-7gmmi9n04246a8c1.666f-foodre-7gmmi9n04246a8c1-1317135481/sceneryMarkers/2.png',
+          'cloud://foodre-7gmmi9n04246a8c1.666f-foodre-7gmmi9n04246a8c1-1317135481/sceneryMarkers/3.png',
+          'cloud://foodre-7gmmi9n04246a8c1.666f-foodre-7gmmi9n04246a8c1-1317135481/sceneryMarkers/4.png',
+          'cloud://foodre-7gmmi9n04246a8c1.666f-foodre-7gmmi9n04246a8c1-1317135481/sceneryMarkers/5.png',
+          'cloud://foodre-7gmmi9n04246a8c1.666f-foodre-7gmmi9n04246a8c1-1317135481/sceneryMarkers/6.png',
         ]
       }).then(res => {
         this.imgs = res.fileList

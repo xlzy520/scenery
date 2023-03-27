@@ -3,9 +3,9 @@
 
 
 "@vant/weapp@^1.0.7":
-  "integrity" "sha512-F7gkcVKLTh4Pt17ukZnpZmn78CbtfmUtxSZif02ysyXZmqtAf1aAUffL3i1y+qzGWCXF4y/OVkOBVQVrKHI4MA=="
-  "resolved" "https://registry.npmjs.org/@vant/weapp/-/weapp-1.0.7.tgz"
-  "version" "1.0.7"
+  "integrity" "sha512-5usuhoN1kiOV6pzrdVzHrAux6DupKlGd9w+yYc992Zy1n1wHLZMb1dGM3+xtbNE3tpWE2qv95vIFSMpJRFyE7Q=="
+  "resolved" "https://registry.npmmirror.com/@vant/weapp/-/weapp-1.10.14.tgz"
+  "version" "1.10.14"
 
 "dayjs@^1.8.22":
   "integrity" "sha512-N8IXfxBD62Y9cKTuuuSoOlCXRnnzaTj1vu91r855iq6FbY5cZqOZnW/95nUn6kJiR+W9PHHrLykEoQOe6fUKxQ=="

@@ -6,3 +6,9 @@ page {
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
 }
+
+
+page {
+  --button-primary-background-color: #007aff;
+  --button-primary-border-color: #007aff;
+}
